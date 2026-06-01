@@ -67,16 +67,36 @@ class TransformerEncoder(nn.Module):
             nhead = nhead,
             dim_feedforward=2048,
             dropout=0.1,
-            batch_first=True 
+            batch_first=True    ### [batch, timesteps/time, features]
         )
+    
+        self.transformer = nn.TransformerEncoder(
+            encoder_layer,
+            num_layers=num_layers
+        )
+
+        self.norm = nn.LayerNorm(d_model)
+        
+    def forward(self,x):
+        # x is in [batch, channels, time] = [batch, 512, 49]  -> output of CNN
+        x = x.transpose(1,2) # [batch, time, channels] =  [batch, 49, 512] 
+        x = self.transformer(x)
+        x = self.norm(x)
+        ## output is same as input -> [batch, time, channels] but with richer representations
+        return x
     
 
 if __name__ == '__main__':
     
     ## test CNN loop 
-    model = CNNFeatureExtractor()
-    dummy = torch.randn(4, 16000)
-    out = model(dummy)
-    print(f"Input: {dummy.shape}") ## Input: torch.Size([4, 16000])
-    print(f"Output: {out.shape}")  ## utput: torch.Size([4, 512, 49]) --> this is 49 timsteps each of 512 values. so basically 16000 gets downsampled to 49 and now instead of just 1 value per timestep (the amplitude) we now have 512 features per timestep!
+    cnn = CNNFeatureExtractor()
+    transformer = TransformerEncoder()
 
+    dummy = torch.randn(4, 16000)
+    print(f"Input: {dummy.shape}") ## Input: torch.Size([4, 16000])
+
+    cnn_out = cnn(dummy)
+    print(f"Output: {cnn_out.shape}")  ## Output: torch.Size([4, 512, 49]) --> this is 49 timsteps each of 512 values. so basically 16000 gets downsampled to 49 and now instead of just 1 value per timestep (the amplitude) we now have 512 features per timestep!
+
+    trans_out = transformer(cnn_out)
+    print(f"Transformer output: {trans_out.shape}")
