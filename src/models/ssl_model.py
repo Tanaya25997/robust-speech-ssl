@@ -1,7 +1,7 @@
 import torch 
 import torch.nn as nn 
 import torch.nn.functional as F 
-from encoder import CNNFeatureExtractor, TransformerEncoder
+from models.encoder import CNNFeatureExtractor, TransformerEncoder
 
 
 ##projection_dim=128 is the size of the space where the contrastive loss will be computed — remember gϕg_\phi
