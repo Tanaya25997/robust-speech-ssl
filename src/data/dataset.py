@@ -7,7 +7,7 @@ class SpeechDataset(Dataset):
 
     def __init__(self, root_dir, sample_rate=16000, duration=3):
         self.root_dir = root_dir 
-        self.sample_rate = sample_rate   ### 16khx since speech is mostly in 80Hz-8kHz, Fun fact: music is samples at 44.1kHz
+        self.sample_rate = sample_rate   ### 16khz since speech is mostly in 80Hz-8kHz, Fun fact: music is samples at 44.1kHz
         self.duration = duration 
         self.samples = duration * sample_rate 
 
@@ -46,7 +46,7 @@ if __name__=='__main__':
     print(f"Dataset size: {len(dataset)}")
     sample = dataset[0]
     print(f"Sample shape: {sample.shape}")
-    
+
 
     
 
