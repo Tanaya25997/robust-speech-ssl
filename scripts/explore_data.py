@@ -23,7 +23,7 @@ print(f"Total files: {len(files)}")
 durations = []
 sample_rates = []
 
-for i, f in files:
+for i, f in enumerate(files):
     if i % 1000 == 0:
         print(f"Processing {i}/{len(files)}...")
     info = sf.info(f)
