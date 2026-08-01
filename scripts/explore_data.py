@@ -24,7 +24,7 @@ print(f"Total files: {len(files)}")
 durations = []
 sample_rates = []
 
-start = time.now()
+start = time.time()
 for i, f in enumerate(files):
     if i % 1000 == 0:
         print(f"Processing {i}/{len(files)}...")
@@ -52,4 +52,4 @@ with open(output_file, 'w') as f:
 
 
 print(f"Stats saved to {output_file}")
-print(f"Time taken: {time.now() - start}")
+print(f"Time taken: {time.time() - start:.2f}s")
