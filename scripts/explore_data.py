@@ -23,7 +23,7 @@ durations = []
 sample_rates = []
 
 for f in files[:500]:
-    info = torchaudio.info(f)
+    info = torchaudio.info(f, backend="soundfile")
     duration = info.num_frames / info.sample_rate ### samples = time * samplling_frequency
     durations.append(duration)
     sample_rates.append(info.sample_rate)
