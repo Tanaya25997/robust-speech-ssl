@@ -6,7 +6,7 @@ import time
 
 output_dir = 'experiments/analysis'
 os.makedirs(output_dir, exist_ok=True)
-output_file = os.path.join(output_dir, "data_stats.txt")
+output_file = os.path.join(output_dir, sys.argv[1] if len(sys.argv) > 1 else "data_stats.txt")
 
 
 data_dir = '/data/LibriSpeech/train-clean-100'
