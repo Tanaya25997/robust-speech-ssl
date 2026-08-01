@@ -33,7 +33,7 @@ for i, f in enumerate(files):
     durations.append(info.duration)
     sample_rates.append(info.samplerate)
 
-print(f"Time taken: {time.now() - start}")
+
 
 
 ## descriptive stats 
@@ -52,3 +52,4 @@ with open(output_file, 'w') as f:
 
 
 print(f"Stats saved to {output_file}")
+print(f"Time taken: {time.now() - start}")
