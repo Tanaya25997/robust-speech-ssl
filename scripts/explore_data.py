@@ -23,7 +23,9 @@ print(f"Total files: {len(files)}")
 durations = []
 sample_rates = []
 
-for f in files[:500]:
+for i, f in files:
+    if i % 1000 == 0:
+        print(f"Processing {i}/{len(files)}...")
     info = sf.info(f)
     #duration =   #info.num_frames / info.sample_rate ### samples = time * samplling_frequency
     durations.append(info.duration)
