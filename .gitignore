@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+experiments/results/*.log
+experiments/results/*.err
+experiments/checkpoints/
