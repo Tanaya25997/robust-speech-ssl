@@ -31,7 +31,7 @@ for f in files[:500]:
 ## descriptive stats 
 
 
-with open(output_file, w) as f:
+with open(output_file, 'w') as f:
     f.write(f"Total files: {len(files)} \n")
     f.write(f"Sample rates found: {set(sample_rates)}\n")
     f.write(f"Min duration:  {min(durations):.2f}s\n")
