@@ -7,7 +7,7 @@ os.makedirs(output_dir, exist_ok=True)
 output_file = os.path.join(output_dir, "data_stats.txt")
 
 
-data_dir = '/data/LibriSpeech/train-clean-500'
+data_dir = '/data/LibriSpeech/train-clean-100'
 
 files = []
 
