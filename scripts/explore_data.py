@@ -2,6 +2,7 @@ import torchaudio
 import os 
 import statistics
 import soundfile as sf
+import time
 
 output_dir = 'experiments/analysis'
 os.makedirs(output_dir, exist_ok=True)
@@ -23,6 +24,7 @@ print(f"Total files: {len(files)}")
 durations = []
 sample_rates = []
 
+start = time.now()
 for i, f in enumerate(files):
     if i % 1000 == 0:
         print(f"Processing {i}/{len(files)}...")
@@ -30,6 +32,9 @@ for i, f in enumerate(files):
     #duration =   #info.num_frames / info.sample_rate ### samples = time * samplling_frequency
     durations.append(info.duration)
     sample_rates.append(info.samplerate)
+
+print(f"Time taken: {time.now() - start}")
+
 
 ## descriptive stats 
 
