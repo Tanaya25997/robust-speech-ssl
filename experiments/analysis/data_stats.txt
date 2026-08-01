@@ -1,0 +1,9 @@
+Total files: 28539 
+Sample rates found: {16000}
+Min duration:  1.41s
+Max duration:  24.52s
+Mean duration: 12.69s
+Median duration: 13.99s
+Std duration:    3.57s
+Files under 3s: 587
+Files over 3s:  27952
