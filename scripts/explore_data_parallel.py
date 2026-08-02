@@ -77,3 +77,101 @@ All 4 processes have NFS requests in flight simultaneously even though only 2 CP
 
 This is why IO-bound tasks benefit from more workers than cores. CPU-bound tasks (like matrix multiplication) would only benefit up to the number of cores.
 '''
+
+
+'''
+note: on compute node with 176 cores thsi script tool 3.74 s on first run but next runs was 0.76 s (cache warm)
+
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 3.74s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 0.76s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 4.36s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 3.45s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 0.75s with 176 workers
+
+cold -> hot -> cold -> cold -> hot (different compute node assigend)
+
+
+ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 3.69s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 0.76s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 0.76s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 0.75s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p176.txt 176
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p176.txt
+Time taken: 3.45s with 176 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+
+last command tried after 2 minutes. cache eviction is pretty quick!
+
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p100.txt 100
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p100.txt
+Time taken: 0.69s with 100 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p100.txt 100
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p100.txt
+Time taken: 0.72s with 100 workers
+
+
+
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p352.txt 352
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p352.txt
+Time taken: 3.57s with 352 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p352.txt 352
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p352.txt
+Time taken: 0.97s with 352 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p352.txt 352
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p352.txt
+Time taken: 0.98s with 352 workers
+
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p1056.txt 1056
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p1056.txt
+Time taken: 5.34s with 1056 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p1056.txt 1056
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p1056.txt
+Time taken: 2.37s with 1056 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ srun -N 1 --ntasks-per-node=1 --cpus-per-task=176 -w slurm-compute-node-0 python scripts/explore_data_parallel.py data_stats_compute_p1056.txt 1056
+Total files: 28539
+Stats saved to experiments/analysis/parallel/data_stats_compute_p1056.txt
+Time taken: 2.39s with 1056 workers
+(ssl) ubuntu@slurm-login-node-0:~/robust-speech-ssl$ 
+
+
+noet: context switching with workers > cpu cores is only adding iverhead here. possible because nfs bandwidth is alreday saturated 
+'''
