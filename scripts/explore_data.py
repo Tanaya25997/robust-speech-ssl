@@ -34,13 +34,14 @@ for i, f in enumerate(files):
     sample_rates.append(info.samplerate)
 
 
-
+end = time.time()
 
 ## descriptive stats 
 
 
 with open(output_file, 'w') as f:
     f.write(f"Total files: {len(files)} \n")
+    f.write(f"Time taken: {end - start:.2f}s\n")
     f.write(f"Sample rates found: {set(sample_rates)}\n")
     f.write(f"Min duration:  {min(durations):.2f}s\n")
     f.write(f"Max duration:  {max(durations):.2f}s\n")
@@ -52,4 +53,4 @@ with open(output_file, 'w') as f:
 
 
 print(f"Stats saved to {output_file}")
-print(f"Time taken: {time.time() - start:.2f}s")
+print(f"Time taken: {end - start:.2f}s")
