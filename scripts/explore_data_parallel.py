@@ -28,7 +28,7 @@ print(f"Total files: {len(files)}")
 start = time.time() 
 num_workers = int(sys.argv[2]) if len(sys.argv) > 2 else 4
 
-with Pool(process=num_workers) as pool:
+with Pool(processes=num_workers) as pool:
     results = pool.map(get_info, files)
 
 durations = [r[0] for r in results]
